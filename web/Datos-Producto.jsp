@@ -1,11 +1,19 @@
-<%@page import="Entidades.Cliente"%>
+<%-- 
+    Document   : Datos-Producto
+    Created on : 28/06/2022, 11:56:56 AM
+    Author     : gcamo
+--%>
 
-<%@page import="Entidades.Cargo"%>
-<%@page import="Entidades.Tipodocumento"%>
-
-<%@page import="java.util.List"%>  
-<%@page import="java.util.*" %>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="Entidades.Lote"%>
+<%@page import="Entidades.Categoria"%>
+<%@page import="Entidades.Producto"%>
+<%@page import="Entidades.Proveedor"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <style>
     #oculta{
         display:none;
@@ -21,116 +29,88 @@
                 <div class="card-body">
 
                     <div class="alert alert-info alert-styled-left text-blue-800 content-group d-flex justify-content-between">
-                        <div> <span class="btn text-semibold text-light"><i class="icon fas fa-user"></i>Lista de Clientes</span></div>
-                        <div><button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#modal-nuevo"><i class="fa fa-user-plus"></i> Nuevo Cliente</button></div>
+                        <div> <span class="btn text-semibold text-light"><i class="icon fas fa-user"></i>Lista de Productos</span></div>
+                        <div><button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#modal-nuevo"><i class="fa fa-user-plus"></i> Nuevo Producto</button></div>
 
 
                     </div>
 
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="tablaClientes" class="table table-bordered table-hover">
+                        <table id="tablaProductos" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Tipo. Doc</th>
-                                    <th>Num. Doc</th>
-                                    <th>Fecha Nac.</th>
-                                    <th>Edad</th>
-                                    <th>Nacionalidad</th>
-                                    <th>Empresa</th>
-                                    <th>Email</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Sexo</th>
+                                    <th>Categoria</th>
+                                    <th>Reg.Sanitario</th>
+                                    <th>Cod Med</th>
+                                    <th>Medicamento</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Venta</th>
+                                    <th>Concentracion</th>
+                                    <th>Stock</th>
+                                    <th>Dias para Vencer</th>
+                                    <th>Fecha Vencimiento</th>
+                                    <th>Proveedor</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbclientes">
-                                <%if (session.getAttribute("listaClientes") != null) {
-                                        List<Cliente> lstClientes = (List<Cliente>) session.getAttribute("listaClientes");
-                                        for (int i = 0; i < lstClientes.size(); i++) {
-                                            Cliente clien = lstClientes.get(i);
+                            <tbody id="tbProductos">
+                                <%if (session.getAttribute("listaProductos") != null) {
+                                        List<Lote> lstLotes = (List<Lote>) session.getAttribute("listaProductos");
+                                        for (int i = 0; i < lstLotes.size(); i++) {
+                                            Lote lot = lstLotes.get(i);
                                 %>
 
-                                <tr data-idcodigo="<%=clien.getId_persona()%>" data-iddocumento="<%=clien.getTipodocumento().getId_tipo_documento()%>">
-                                    <td><%=clien.getNom_persona()%></td>
-                                    <td><%=clien.getApe_persona()%></td>
-                                    <td><%=clien.getTipodocumento().getDes_tipo_documento()%></td>
-                                    <td><%=clien.getNumero_identicacion()%></td>
-                                    <td><%=clien.getFecha_naci_persona()%></td>
+                                <tr data-idcodigo="<%=lot.getId_lote()%>" data-idcategoria="<%=lot.getCategoria().getId_categoria()%>" data-idproducto="<%=lot.getProducto().getId_producto()%>">
+                                    <td><%=lot.getCategoria().getDes_categoria()%></td>
+                                    <td><%=lot.getProducto().getReg_sanitario()%></td>     
+
+                                    <td><%=lot.getProducto().getId_producto()%></td>
+                                    <td><%=lot.getProducto().getNombre_producto()%></td>
+
+                                    <td><%=lot.getProducto().getPrecio_compra()%></td>
+                                    <td><%=lot.getProducto().getPrecio_venta()%></td>
+
+                                    <td><%=lot.getProducto().getConcentracion_producto()%></td>
+                                    <td><%=lot.getStock()%></td>
+
                                     <td>
                                         <%
-                                            int ano_actual, ano_nacimiento, anos, dia_actual, dia_nacimiento;
-                                            int dias, dias_del_mes, mes_actual, mes_nacimiento, meses;
 
-                                            Date dNow = new Date();
-                                            SimpleDateFormat ft = new SimpleDateFormat("yyyy");
-                                            String anioactual = ft.format(dNow);
+                                            SimpleDateFormat dtf = new SimpleDateFormat("dd-MM-yyyy");
+                                            Calendar calendar = Calendar.getInstance();
+                                            Date dateObj = calendar.getTime();
+                                            String formattedDate = dtf.format(dateObj);
+                                            String fechaInicial = formattedDate;
 
-                                            SimpleDateFormat ft1 = new SimpleDateFormat("M");
-                                            String mesactual = ft1.format(dNow);
+                                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                                            
+                                            Date fechaobj = new SimpleDateFormat("yyyy-MM-dd").parse(lot.getFecha_vencimiento());     
+                                            String fechaTexto = formatter.format(fechaobj);
 
-                                            SimpleDateFormat ft2 = new SimpleDateFormat("dd");
-                                            String diaactual = ft2.format(dNow);
+                                            String[] fechaI = fechaInicial.split("-");
+                                            String[] fechaF = fechaTexto.split("-");
 
-                                            String string = clien.getFecha_naci_persona();
-                                            String[] parts = string.split("-");
-                                            String anionac = parts[0];
-                                            String mesnaci = parts[1];
-                                            String dianaci = parts[2];
+                                            Calendar cal = Calendar.getInstance();
 
-                                            ano_actual = Integer.parseInt(anioactual);
-                                            ano_nacimiento = Integer.parseInt(anionac);
-                                            dia_actual = Integer.parseInt(diaactual);
-                                            dia_nacimiento = Integer.parseInt(dianaci);
-                                            dias_del_mes = 0;
-                                            mes_actual = Integer.parseInt(mesactual);
-                                            mes_nacimiento = Integer.parseInt(mesnaci);
+                                            cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(fechaI[0]));
+                                            cal.set(Calendar.MONTH, Integer.parseInt(fechaI[1]));
+                                            cal.set(Calendar.YEAR, Integer.parseInt(fechaI[2]));
+                                            Date firstDate = cal.getTime();
 
-                                            if (mes_actual == 1 || mes_actual == 3 || mes_actual == 5 || mes_actual == 7 || mes_actual == 8 || mes_actual == 10 || mes_actual == 12) {
-                                                dias_del_mes = 31;
-                                            }
-                                            if (mes_actual == 2) {
-                                                dias_del_mes = 28;
-                                            }
-                                            if (mes_actual == 4 || mes_actual == 6 || mes_actual == 9 || mes_actual == 11) {
-                                                dias_del_mes = 30;
-                                            }
-                                            int anos1 = ano_actual - ano_nacimiento;
-                                            if (anos1 > 0) {
-                                                anos = ano_actual - ano_nacimiento;
-                                            } else {
-                                                anos = 0;
-                                            }
-                                            meses = mes_actual - mes_nacimiento;
-                                            dias = dia_actual - dia_nacimiento;
-                                            if (dias < 0) {
-                                                dias = dias + dias_del_mes;
-                                                meses = meses - 1;
-                                            }
-                                            if (meses < 0) {
-                                                meses = meses + 12;
-                                                anos = anos - 1;
-                                            }
-                                            out.println(anos + " Años  ");
-                                            out.println(meses + " meses y ");
-                                            out.println(dias + " dias");
+                                            cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(fechaF[0]));
+                                            cal.set(Calendar.MONTH, Integer.parseInt(fechaF[1]));
+                                            cal.set(Calendar.YEAR, Integer.parseInt(fechaF[2]));
+                                            Date secondDate = cal.getTime();
 
+                                            long diferencia = secondDate.getTime() - firstDate.getTime();
+
+                                            out.println(String.valueOf((diferencia / 1000 / 60 / 60 / 24)));
 
                                         %>
-
-
-
-
                                     </td>
-                                    <td><%=clien.getNacioalidad_persona()%></td>
-                                    <td><%=clien.getEmpresa_persona()%></td>
-                                    <td><%=clien.getCorreo_persona()%></td>
-                                    <td><%=clien.getTelf_persona()%></td>
-                                    <td><%=clien.getDir_persona()%></td>
-                                    <td><%=clien.getSex_persona()%></td>
+                                    <td><%=lot.getFecha_vencimiento()%></td>
 
+                                    <td><%=lot.getProveedor().getNom_persona()%></td>
 
                                 </tr>
                                 <%
@@ -153,12 +133,11 @@
 </div>
 <!-- /.content -->
 
-<!-- MODALLLLL NUEVOOOO-->
 <div class="modal fade" id="modal-nuevo" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Nuevo Cliente</h4>
+                <h4 class="modal-title">Nuevo Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
                 </button>
@@ -169,13 +148,31 @@
                     <div class="alert alert-info alert-styled-left text-blue-800 content-group modal-title">
                         <span class="text-semibold">Estimado usuario</span>
                         Los campos con <span class="text-danger"> * </span> son necesarios.
-
-                    </div>
-
+                    </div>                
                     <div class="row mt-3">
                         <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Categoria</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-address-book"></i></span>
+                                </div>
+                                <select class="form-control" name="descate" id="descaten">
+                                    <%if (session.getAttribute("listadeCategorias") != null) {
+                                            List<Categoria> lstCategoria = (List<Categoria>) session.getAttribute("listadeCategorias");
+                                            for (int i = 0; i < lstCategoria.size(); i++) {
+                                                Categoria Cate = lstCategoria.get(i);
+                                    %>
+                                    <option value="<%=Cate.getId_categoria()%>"><%=Cate.getDes_categoria()%></option>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                </select> 
+                            </div>        
+                        </div>                       
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <label for="uname" class="font-weight-light">Nombres</label>
+                            <label for="uname" class="font-weight-light">Categoria</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -191,7 +188,7 @@
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
                                 <input type="text" class="form-control"  id="txtapen" placeholder="Ingrese Apellidos" name="apellidos" required>
-                                <div class="valid-feedback">Válido.</div>
+                                <div class="valid-feedback">VÃ¡lido.</div>
                                 <div class="invalid-feedback">Por favor llena este campo.</div>
                             </div>
                         </div>
@@ -202,21 +199,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-address-card"></i></span>
                                 </div>
-                                <select class="form-control" name="tipodoc" id="tipodocn">
-                                    <%if (session.getAttribute("listadocumentos") != null) {
-                                            List<Tipodocumento> lstdocume = (List<Tipodocumento>) session.getAttribute("listadocumentos");
-                                            for (int i = 0; i < lstdocume.size(); i++) {
-                                                Tipodocumento td = lstdocume.get(i);
 
-                                    %>
-
-                                    <option value="<%=td.getId_tipo_documento()%>"><%=td.getDes_tipo_documento()%></option>
-
-                                    <%
-
-                                    }
-                                }%>
-                                </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
@@ -242,14 +225,14 @@
                                 </div>
                                 <select class="form-control" name="nacion" id="txtnacion">
                                     <option>Seleccione una Nacionalidad</option>
-                                    <option value="Peruana">Perú</option>
+                                    <option value="Peruana">PerÃº</option>
                                     <option value="Venezolana">Venezuela</option>
                                 </select>    
                                 <!--<input type="text" class="form-control"  id="txtnacion" placeholder="Ingrese Apellidos" name="nacionalidad" required> -->
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
-                        <label for="uname" class="font-weight-light">Empresa</label>
+                            <label for="uname" class="font-weight-light">Empresa</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-building"></i></span>
@@ -267,7 +250,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
-                            <label for="uname" class="font-weight-light">Teléfono</label>
+                            <label for="uname" class="font-weight-light">TelÃ©fono</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-phone"></i></span>
@@ -278,7 +261,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-6">
-                            <label for="uname" class="font-weight-light">Dirección</label>
+                            <label for="uname" class="font-weight-light">DirecciÃ³n</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
@@ -319,250 +302,12 @@
 </div>
 
 
-<!-- MODALLLLL EDITAR -->
-<div class="modal fade" id="modal-editar" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-default">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Editar Datos del Cliente</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
-                </button>
-            </div>
-            
-            <form name="frmMnt" method="post">
-                <div class="modal-body">
-                    <div class="alert alert-info alert-styled-left text-blue-800 content-group modal-title">
-                        <span class="text-semibold">Estimado usuario</span>
-                        Los campos con <span class="text-danger"> * </span> son necesarios.
-
-                    </div>
-                    <input type="hidden" class="form-control"  id="txtcodigo"  name="txtcodigo">
-                    <br> 
-                    <label for="uname" class="font-weight-light">Nombres</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtnom" placeholder="Ingrese Nombres" name="nombres" required>
-
-                    </div>
-
-                    <label for="uname" class="font-weight-light">Apellidos:</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtape" placeholder="Ingrese Apellidos" name="apellidos" required>
-                        <div class="valid-feedback">Válido.</div>
-                        <div class="invalid-feedback">Por favor llena este campo.</div>
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Tipo Documento</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <select class="form-control" name="tipodoc" id="tipodoc">
-                            <%if(session.getAttribute("listadocumentos") != null){
-                            List<Tipodocumento> lstdocume = (List<Tipodocumento>)session.getAttribute("listadocumentos");
-                            for(int i=0; i < lstdocume.size(); i++){
-                            Tipodocumento td = lstdocume.get(i);
-                            if(td.getId_tipo_documento()==td.getId_tipo_documento()){ 
-                            %>
-
-                            <option value="<%=td.getId_tipo_documento()%>" selected><%=td.getDes_tipo_documento()%></option>
-
-                            <%
-                               }
-                                }
-                                    }%>
-                        </select>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Numero Documento</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtnumero" placeholder="Ingrese Apellidos" name="numerodocumento" required>
-
-                    </div>
-
-
-
-
-                    <label for="uname" class="font-weight-light">Fecha Nac.</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="date" class="form-control"  id="txtedad" placeholder="Ingrese Apellidos" name="txtedad" required>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Nacionalidad</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtnacio" placeholder="Ingrese Apellidos" name="nacionalidad" required>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Empresa</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtempresa" placeholder="Ingrese Apellidos" name="empresa" required>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Email</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtemail" placeholder="Ingrese Apellidos" name="email" required>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Teléfono</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="txttelf" placeholder="Ingrese Apellidos" name="telf" required>
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Dirección</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtdir" placeholder="Ingrese Apellidos" name="direccion" required>
-
-                    </div>
-
-
-
-
-
-                    <label for="uname" class="font-weight-light">Sexo</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-
-                        <select class="form-control" name="sexo" id="sexo">
-                            <option>Seleccione un Sexo</option>
-                            <option value="M">Masculino</option>
-                            <option  value="F">Femenino</option>
-
-                        </select>   
-
-
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Cargo</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-
-                        <select class="form-control" name="descargo" id="descargo">
-                            <%if(session.getAttribute("listacargos") != null){
-                            List<Cargo> lstcargo = (List<Cargo>)session.getAttribute("listacargos");
-                            for(int i=0; i < lstcargo.size(); i++){
-                            Cargo cargos = lstcargo.get(i);
-                            if(cargos.getId_cargo()==cargos.getId_cargo()){ 
-                            %>
-
-                            <option value="<%=cargos.getId_cargo()%>" selected><%=cargos.getDes_cargo()%></option>
-
-                            <%
-                               }
-                                }
-                                    }%>
-                        </select> 
-
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Estado</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                    </div>
-
-
-                    <label for="uname" class="font-weight-light">Usuario</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtusu" placeholder="Ingrese Apellidos" name="usuario" required>
-
-                    </div>
-
-
-                    <label for="uname" class="font-weight-light">Clave</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtclave" placeholder="Ingrese Apellidos" name="clave" required>
-
-                    </div>
-
-
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" onclick="Eliminar()">Eliminar</button>
-                    <button type="button" class="btn btn-primary" onclick="Actualizar()">Editar</button>
-                </div>
-            </form>
-
-
-        </div>
-
-
-
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
 
 <script>
     $(document).ready(function () {
 
         var table;
-        table = $('#tablaClientes').DataTable({
+        table = $('#tablaProductos').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,
@@ -574,7 +319,7 @@
                 "processing": "Procesando...",
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
+                "emptyTable": "NingÃºn dato disponible en esta tabla",
                 "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                 "infoFiltered": "(filtrado de un total de _MAX_ registros)",
                 "search": "Buscar:",
@@ -582,7 +327,7 @@
                 "loadingRecords": "Cargando...",
                 "paginate": {
                     "first": "Primero",
-                    "last": "Último",
+                    "last": "Ãšltimo",
                     "next": "Siguiente",
                     "previous": "Anterior"
                 },
@@ -593,7 +338,7 @@
                 "buttons": {
                     "copy": "Copiar",
                     "colvis": "Visibilidad",
-                    "collection": "Colección",
+                    "collection": "ColecciÃ³n",
                     "colvisRestore": "Restaurar visibilidad",
                     "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
                     "copySuccess": {
@@ -618,19 +363,19 @@
                 },
                 "decimal": ",",
                 "searchBuilder": {
-                    "add": "Añadir condición",
+                    "add": "AÃ±adir condiciÃ³n",
                     "button": {
-                        "0": "Constructor de búsqueda",
-                        "_": "Constructor de búsqueda (%d)"
+                        "0": "Constructor de bÃºsqueda",
+                        "_": "Constructor de bÃºsqueda (%d)"
                     },
                     "clearAll": "Borrar todo",
-                    "condition": "Condición",
+                    "condition": "CondiciÃ³n",
                     "conditions": {
                         "date": {
                             "after": "Despues",
                             "before": "Antes",
                             "between": "Entre",
-                            "empty": "Vacío",
+                            "empty": "VacÃ­o",
                             "equals": "Igual a",
                             "notBetween": "No entre",
                             "notEmpty": "No Vacio",
@@ -645,12 +390,12 @@
                             "lt": "Menor que",
                             "lte": "Menor o igual que",
                             "notBetween": "No entre",
-                            "notEmpty": "No vacío",
+                            "notEmpty": "No vacÃ­o",
                             "not": "Diferente de"
                         },
                         "string": {
                             "contains": "Contiene",
-                            "empty": "Vacío",
+                            "empty": "VacÃ­o",
                             "endsWith": "Termina en",
                             "equals": "Igual a",
                             "notEmpty": "No Vacio",
@@ -660,9 +405,9 @@
                         "array": {
                             "not": "Diferente de",
                             "equals": "Igual",
-                            "empty": "Vacío",
+                            "empty": "VacÃ­o",
                             "contains": "Contiene",
-                            "notEmpty": "No Vacío",
+                            "notEmpty": "No VacÃ­o",
                             "without": "Sin"
                         }
                     },
@@ -671,23 +416,23 @@
                     "leftTitle": "Criterios anulados",
                     "logicAnd": "Y",
                     "logicOr": "O",
-                    "rightTitle": "Criterios de sangría",
+                    "rightTitle": "Criterios de sangrÃ­a",
                     "title": {
-                        "0": "Constructor de búsqueda",
-                        "_": "Constructor de búsqueda (%d)"
+                        "0": "Constructor de bÃºsqueda",
+                        "_": "Constructor de bÃºsqueda (%d)"
                     },
                     "value": "Valor"
                 },
                 "searchPanes": {
                     "clearMessage": "Borrar todo",
                     "collapse": {
-                        "0": "Paneles de búsqueda",
-                        "_": "Paneles de búsqueda (%d)"
+                        "0": "Paneles de bÃºsqueda",
+                        "_": "Paneles de bÃºsqueda (%d)"
                     },
                     "count": "{total}",
                     "countFiltered": "{shown} ({total})",
-                    "emptyPanes": "Sin paneles de búsqueda",
-                    "loadMessage": "Cargando paneles de búsqueda",
+                    "emptyPanes": "Sin paneles de bÃºsqueda",
+                    "loadMessage": "Cargando paneles de bÃºsqueda",
                     "title": "Filtros Activos - %d"
                 },
                 "select": {
@@ -757,16 +502,16 @@
                         "title": "Eliminar Registro",
                         "submit": "Eliminar",
                         "confirm": {
-                            "_": "¿Está seguro que desea eliminar %d filas?",
-                            "1": "¿Está seguro que desea eliminar 1 fila?"
+                            "_": "Â¿EstÃ¡ seguro que desea eliminar %d filas?",
+                            "1": "Â¿EstÃ¡ seguro que desea eliminar 1 fila?"
                         }
                     },
                     "error": {
-                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">MÃ¡s informaciÃ³n&lt;\\\/a&gt;).<\/a>"
                     },
                     "multi": {
-                        "title": "Múltiples Valores",
-                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                        "title": "MÃºltiples Valores",
+                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquÃ­, de lo contrario conservarÃ¡n sus valores individuales.",
                         "restore": "Deshacer Cambios",
                         "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
                     }
@@ -779,11 +524,16 @@
 </script> 
 
 <script>
-    $('#tbclientes').on('click', 'tr td', function (evt) {
-        var target, codigo, iddocumento,nom, ape, td, nd, edad, nacio, empresa, email, telf, dir, sex;
+
+    $('#tbProductos').on('click', 'tr td', function (evt) {
+
+        var target, codigo, iddocumento, idcargo, idestado, nom, ape, td, nd, edad, nacio, empresa, email, telf, dir, sex, cargo, estado, usu, clave;
         target = $(event.target);
         codigo = target.parent().data('idcodigo');
         iddocumento = target.parent().data('iddocumento');
+        idcargo = target.parent().data('idcargo');
+        idestado = target.parent().data('idestado');
+
         nom = target.parent("tr").find("td").eq(0).html();
         ape = target.parent("tr").find("td").eq(1).html();
         nd = target.parent("tr").find("td").eq(3).html();
@@ -794,6 +544,10 @@
         telf = target.parent("tr").find("td").eq(9).html();
         dir = target.parent("tr").find("td").eq(10).html();
         sex = target.parent("tr").find("td").eq(11).html();
+        cargo = target.parent("tr").find("td").eq(12).html();
+        usu = target.parent("tr").find("td").eq(14).html();
+        clave = target.parent("tr").find("td").eq(15).html();
+
 
         $("#txtnom").val(nom);
         $("#txtape").val(ape);
@@ -805,15 +559,21 @@
         $("#txttelf").val(telf);
         $("#txtdir").val(dir);
         $("#sexo").val(sex);
+        $("#txtusu").val(usu);
+        $("#txtclave").val(clave);
         $("#tipodoc").val(iddocumento);
+        $("#descargo").val(idcargo);
+        $("#estado").val(idestado);
         $("#txtcodigo").val(codigo);
 
         $("#modal-editar").modal('show');
     });
 
     function Actualizar() {
+
+
         Swal.fire({
-            title: '<strong style="color:black;font-family:OswaldLight;">¿ Desea Modificar los datos del Registro ?</strong>',
+            title: '<strong style="color:black;font-family:OswaldLight;">Â¿ Desea Modificar los datos del Registro ?</strong>',
             text: 'Asegurese de que todos los datos sean los correctos',
             // type: 'question',
             imageUrl: 'ICONOS/logobiomed.png',
@@ -861,7 +621,7 @@
                     data: $("#frmodi").serialize(),
                     beforeSend: function () {
                         Swal.fire({
-                            html: 'El registro se está Modificando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
+                            html: 'El registro se estÃ¡ Modificando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
                             imageUrl: 'ICONOS/logobiomed.png',
                             imageAlt: 'Biomed',
                             imageWidth: '100px',
@@ -879,7 +639,7 @@
 
                         Swal.fire({
                             title: '<strong>Felicidades</strong>',
-                            text: "El Registro se ha modificado con éxito",
+                            text: "El Registro se ha modificado con Ã©xito",
                             type: 'success',
                             allowOutsideClick: false,
                             showCancelButton: false,
@@ -923,7 +683,7 @@
 
 
         Swal.fire({
-            title: '<strong style="color:black;font-family:OswaldLight;">¿ Desea Agregar el Registro ?</strong>',
+            title: '<strong style="color:black;font-family:OswaldLight;">Â¿ Desea Agregar el Registro ?</strong>',
             text: 'Asegurese de que todos los datos sean los correctos',
             // type: 'question',
             imageUrl: 'ICONOS/logobiomed.png',
@@ -943,8 +703,8 @@
                 var apellidos = document.getElementById("txtapen").value;
                 if (nombres === "" || apellidos === "") {
                     Swal.fire({
-                        title: '<strong>Atención</strong>',
-                        text: "Los campos no pueden estar vacíos",
+                        title: '<strong>AtenciÃ³n</strong>',
+                        text: "Los campos no pueden estar vacÃ­os",
                         type: 'warning'
 
                     });
@@ -959,18 +719,24 @@
                     var telf = document.getElementById("txttelfn").value;
                     var dir = document.getElementById("txtdirn").value;
                     var sexo = document.getElementById("sexon").value;
+                    var cargo = document.getElementById("descargon").value;
+                    var estado = document.getElementById("estadon").value;
+                    var usu = document.getElementById("txtusun").value;
+                    var clave = document.getElementById("txtclaven").value;
+
 
                     jQuery.ajax({
                         url: 'ControladorCliente?menu=Cliente&accion=Agregar&nom=' + nombres +
                                 '&ape=' + apellidos + '&tpdoc=' + tpdoc +
                                 '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
-                                '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo,
+                                '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo +
+                                '&cargo=' + cargo + '&estado=' + estado + '&usu=' + usu + '&clave=' + clave,
                         type: 'POST',
                         dataType: 'html',
                         data: $("#frmodi").serialize(),
                         beforeSend: function () {
                             Swal.fire({
-                                html: 'El registro se está Insertando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
+                                html: 'El registro se estÃ¡ Insertando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
                                 imageUrl: 'ICONOS/logobiomed.png',
                                 imageAlt: 'Biomed',
                                 imageWidth: '100px',
@@ -991,7 +757,7 @@
                             console.log(res);
                             Swal.fire({
                                 title: '<strong>Felicidades</strong>',
-                                text: "El Registro se ha insertado con éxito",
+                                text: "El Registro se ha insertado con Ã©xito",
                                 type: 'success',
                                 allowOutsideClick: false,
                                 showCancelButton: false,
@@ -1005,7 +771,7 @@
                         } else {
                             Swal.fire({
                                 title: '<strong>Error</strong>',
-                                text: "El Registro con el mismo numero de identificación ya existe",
+                                text: "El Registro con el mismo numero de identificaciÃ³n ya existe",
                                 type: 'error',
                                 allowOutsideClick: false,
                                 showCancelButton: false,
@@ -1045,8 +811,8 @@
 
 
         Swal.fire({
-            title: '<strong style="color:black;font-family:OswaldLight;">¿ Desea Eliminar el Registro ?</strong>',
-            text: 'El dato será quitado de la lista',
+            title: '<strong style="color:black;font-family:OswaldLight;">Â¿ Desea Eliminar el Registro ?</strong>',
+            text: 'El dato serÃ¡ quitado de la lista',
             // type: 'question',
             imageUrl: 'ICONOS/logobiomed.png',
             imageAlt: 'Biomed Centro Medico',
@@ -1075,7 +841,7 @@
                     data: $("#frmodi").serialize(),
                     beforeSend: function () {
                         Swal.fire({
-                            html: 'El registro se está eliminando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
+                            html: 'El registro se estÃ¡ eliminando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
                             imageUrl: 'ICONOS/logobiomed.png',
                             imageAlt: 'Biomed',
                             imageWidth: '100px',
@@ -1093,7 +859,7 @@
 
                         Swal.fire({
                             title: '<strong>Felicidades</strong>',
-                            text: "El Registro ha sido eliminado con éxito",
+                            text: "El Registro ha sido eliminado con Ã©xito",
                             type: 'success',
                             allowOutsideClick: false,
                             showCancelButton: false,

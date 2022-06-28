@@ -6,6 +6,7 @@
 package Controlador;
 
 import DAO.ProveedorDAO;
+import DAO.TipodocumentoDAO;
 import Entidades.Proveedor;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,7 +41,7 @@ public class ControladorProveedor extends HttpServlet {
     private HttpSession sesion;
     Proveedor obj = new Proveedor();
     ProveedorDAO objdao = new ProveedorDAO();
-    //TipodocumentoDAO tpdoc = new TipodocumentoDAO();
+    TipodocumentoDAO tpdoc = new TipodocumentoDAO();
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -55,15 +56,16 @@ public class ControladorProveedor extends HttpServlet {
         }
         if(menu.equals("Proveedores")){
             sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
                     sesion.removeAttribute("listaProveedores");
                     sesion.removeAttribute("listaClientes");
                     sesion.removeAttribute("listaEmpleado");
                     List lista = objdao.listarProveedores();
                     sesion.setAttribute("listaProveedores", lista);
                     
-                    /*List listatd = tpdoc.listardocumentos();
+                    List listatd = tpdoc.listardocumentos();
                     sesion.setAttribute("listadocumentos", listatd);
-                    
+                    /*
                     List listacar = cargo.listarCargos();
                     sesion.setAttribute("listacargos", listacar);
 

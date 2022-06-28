@@ -38,6 +38,7 @@ public class LoteDAO {
             while(rs.next()){
                 em =new Lote();
                 em.setId_lote(rs.getInt("Id_lote"));
+                em.getCategoria().setId_categoria(rs.getInt("Id_Categoria"));
                 em.getCategoria().setDes_categoria(rs.getString("Des_categoria"));
                 em.getProducto().setReg_sanitario(rs.getString("Reg_sanitario"));
                 em.getProducto().setId_producto(rs.getInt("Id_producto"));
@@ -46,15 +47,8 @@ public class LoteDAO {
                 em.getProducto().setPrecio_venta(rs.getString("Precio_venta"));
                 em.getProducto().setConcentracion_producto(rs.getString("Concentracion_producto"));
                 em.setStock(rs.getString("stock"));
-                em.setFecha_vencimiento(rs.getDate("Fecha_vencimiento"));
+                em.setFecha_vencimiento(rs.getString("Fecha_vencimiento"));
                 em.getProveedor().setNom_persona(rs.getString("nomproveedor"));
-                
-                //em.setProducto(new Producto(rs.getInt("Id_producto")));
-                //em.setProducto(new Producto(rs.getInt("Id_producto"),rs.getString("Nombre_producto")));
-               
-               
-               
-               
                 
                 list.add(em);
             }
@@ -96,7 +90,7 @@ public class LoteDAO {
            cstm.setString(6,lote.getProducto().getConcentracion_producto());
            cstm.setString(7,lote.getStock());
            cstm.setInt(8,lote.getProveedor().getId_persona());
-           cstm.setDate(9, (Date) lote.getFecha_vencimiento());
+           cstm.setString(9,lote.getFecha_vencimiento());
           
           
            
@@ -145,7 +139,7 @@ public class LoteDAO {
            cstm.setInt(1,lote.getProducto().getId_producto());   
            cstm.setString(2,lote.getStock());
            cstm.setInt(3,lote.getProveedor().getId_persona());
-           cstm.setDate(4, (Date) lote.getFecha_vencimiento());
+           cstm.setString(4,lote.getFecha_vencimiento());
           
           
            confirmacion2 = cstm.execute();
@@ -211,7 +205,7 @@ public class LoteDAO {
                 em.getProducto().setPrecio_venta(rs.getString("Precio_venta"));
                 em.getProducto().setConcentracion_producto(rs.getString("Concentracion_producto"));
                 em.setStock(rs.getString("stock"));
-                em.setFecha_vencimiento(rs.getDate("Fecha_vencimiento"));
+                em.setFecha_vencimiento(rs.getString("Fecha_vencimiento"));
                 em.getProveedor().setNom_persona(rs.getString("nomproveedor"));
                 
                 //em.setProducto(new Producto(rs.getInt("Id_producto")));
@@ -264,7 +258,7 @@ public class LoteDAO {
            cstm.setString(7,lote.getProducto().getConcentracion_producto());
            cstm.setString(8,lote.getStock());
            cstm.setInt(9,lote.getProveedor().getId_persona());
-           cstm.setDate(10, (Date) lote.getFecha_vencimiento());
+           cstm.setString(10,lote.getFecha_vencimiento());
            cstm.setInt(11, lote.getId_lote());
            
            cstm.executeUpdate();

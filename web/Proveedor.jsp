@@ -793,7 +793,7 @@ $(document).ready(function(){
 
  function buscar_datos(){
   jQuery.ajax({
-    url:'Datos-Cliente.jsp',
+    url:'Datos-Proveedor.jsp',
     type:'POST',
     dataType:'html',
    

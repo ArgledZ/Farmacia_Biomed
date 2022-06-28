@@ -13,7 +13,7 @@ public class Lote {
     private Producto producto;
     private String stock;
     private Proveedor proveedor;
-    private Date fecha_vencimiento;
+    private String fecha_vencimiento;
     private Categoria categoria;
     private Persona persona;
 
@@ -25,7 +25,7 @@ public class Lote {
         persona = new Persona();
     }
 
-    public Lote(int id_lote, Producto producto, String stock, Proveedor proveedor, Date fecha_vencimiento, Categoria categoria, Persona persona) {
+    public Lote(int id_lote, Producto producto, String stock, Proveedor proveedor, String fecha_vencimiento, Categoria categoria, Persona persona) {
         this.id_lote = id_lote;
         this.producto = producto;
         this.stock = stock;
@@ -72,11 +72,11 @@ public class Lote {
         this.proveedor = proveedor;
     }
 
-    public Date getFecha_vencimiento() {
+    public String getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(Date fecha_vencimiento) {
+    public void setFecha_vencimiento(String fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 

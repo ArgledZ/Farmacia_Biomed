@@ -8,6 +8,7 @@ package Controlador;
 import DAO.ClienteDAO;
 import DAO.TipodocumentoDAO;
 import Entidades.Cliente;
+import Entidades.Tipodocumento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -36,8 +37,8 @@ public class ControladorCliente extends HttpServlet {
      */
     
     private HttpSession sesion;
-    Cliente cl = new Cliente();
-    ClienteDAO cldao = new ClienteDAO();
+    Cliente obj = new Cliente();
+    ClienteDAO objDao = new ClienteDAO();
     TipodocumentoDAO tpdoc = new TipodocumentoDAO();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -54,8 +55,8 @@ public class ControladorCliente extends HttpServlet {
                     sesion.removeAttribute("listaProductos");
                     sesion.removeAttribute("listaProveedores");
                     sesion.removeAttribute("listaClientes");
-                    sesion.removeAttribute("listaEmpleado");;
-                    List lista = cldao.listarClientes();
+                    sesion.removeAttribute("listaEmpleado");
+                    List lista = objDao.listarClientes();
                     sesion.setAttribute("listaClientes", lista);
                     
                     List listatd = tpdoc.listardocumentos();
@@ -68,6 +69,108 @@ public class ControladorCliente extends HttpServlet {
                     sesion.setAttribute("listaestado", listaestado);
                     */
         response.sendRedirect("Cliente.jsp");
+        }
+        if (menu.equals("Cliente")) {
+            switch (accion) {
+                case "Listar":
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List lista = objDao.listarClientes();
+                    sesion.setAttribute("listaClientes", lista);
+                    
+                    List listatd = tpdoc.listardocumentos();
+                    sesion.setAttribute("listadocumentos", listatd);
+
+                    break;
+
+                case "Agregar":
+
+                    //obj.setId_persona(Integer.parseInt(request.getParameter("id")));
+                    obj.setNom_persona(request.getParameter("nom"));
+                    obj.setApe_persona(request.getParameter("ape"));
+                    obj.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
+                    obj.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    obj.setFecha_naci_persona(request.getParameter("edad"));
+                    obj.setNacioalidad_persona(request.getParameter("nacio"));
+                    obj.setEmpresa_persona(request.getParameter("empresa"));
+                    obj.setCorreo_persona(request.getParameter("correo"));
+                    obj.setTelf_persona(request.getParameter("telf"));
+                    obj.setDir_persona(request.getParameter("dire"));
+                    obj.setSex_persona(request.getParameter("sexo"));
+
+                    boolean resp = objDao.insertar(obj);
+
+                   if (resp == true) {
+                        
+                   } else {
+                                                     
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List listaobj = objDao.listarClientes();
+                    sesion.setAttribute("listaClientes", listaobj);
+                    List listatdobj = tpdoc.listardocumentos();
+                    sesion.setAttribute("listadocumentos", listatdobj);
+                    response.sendRedirect("Cliente.jsp");           
+                    }
+
+                    //request.getRequestDispatcher("Controladorempleado1?menu=Empleado&accion=Listar");
+                    break;
+
+                case "Eliminar":
+
+                    obj.setId_persona(Integer.parseInt(request.getParameter("id")));
+                    objDao.Eliminar(obj);
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List listas = objDao.listarClientes();
+                    sesion.setAttribute("listaClientes", listas);                
+                    response.sendRedirect("Cliente.jsp");                                
+                    //request.getRequestDispatcher("Controladorempleado1?menu=Empleado&accion=Listar");
+                    break;
+
+                case "Editar":
+
+                    obj.setId_persona(Integer.parseInt(request.getParameter("id")));
+                    obj.setNom_persona(request.getParameter("nom"));
+                    obj.setApe_persona(request.getParameter("ape"));
+                    obj.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
+                    obj.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    obj.setFecha_naci_persona(request.getParameter("edad"));
+                    obj.setNacioalidad_persona(request.getParameter("nacio"));
+                    obj.setEmpresa_persona(request.getParameter("empresa"));
+                    obj.setCorreo_persona(request.getParameter("correo"));
+                    obj.setTelf_persona(request.getParameter("telf"));
+                    obj.setDir_persona(request.getParameter("dire"));
+                    obj.setSex_persona(request.getParameter("sexo"));
+                    
+                    objDao.actualiza(obj);
+
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List listas2 = objDao.listarClientes();
+                    sesion.setAttribute("listaClientes", listas2); 
+                    response.sendRedirect("Cliente.jsp"); ;
+                     
+                    //request.getRequestDispatcher("Controladorempleado1?menu=Empleado&accion=Listar");
+
+                    break;
+                default:
+                    throw new AssertionError();
+
+            }
+            
         }
     }
 

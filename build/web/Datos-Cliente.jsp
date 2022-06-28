@@ -47,10 +47,10 @@
                                 </tr>
                             </thead>
                             <tbody id="tbclientes">
-                                <%if(session.getAttribute("listaClientes") != null){
-                                              List<Cliente> lstClientes = (List<Cliente>)session.getAttribute("listaClientes");
-                                              for(int i=0; i < lstClientes.size(); i++){
-                                                  Cliente clien = lstClientes.get(i);
+                                <%if (session.getAttribute("listaClientes") != null) {
+                                        List<Cliente> lstClientes = (List<Cliente>) session.getAttribute("listaClientes");
+                                        for (int i = 0; i < lstClientes.size(); i++) {
+                                            Cliente clien = lstClientes.get(i);
                                 %>
 
                                 <tr data-idcodigo="<%=clien.getId_persona()%>" data-iddocumento="<%=clien.getTipodocumento().getId_tipo_documento()%>">
@@ -60,73 +60,69 @@
                                     <td><%=clien.getNumero_identicacion()%></td>
                                     <td><%=clien.getFecha_naci_persona()%></td>
                                     <td>
-                                    <%
-                                    
-                                            
-        int ano_actual, ano_nacimiento, anos, dia_actual, dia_nacimiento;
-        int dias, dias_del_mes, mes_actual, mes_nacimiento, meses;
-        
-         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy");
-        String anioactual = ft.format(dNow);
-        
-        SimpleDateFormat ft1 = new SimpleDateFormat ("M");
-        String mesactual = ft1.format(dNow);
-        
-        SimpleDateFormat ft2 = new SimpleDateFormat ("dd");
-        String diaactual = ft2.format(dNow);
-        
-        String string = clien.getFecha_naci_persona();
-        String[] parts = string.split("-");
-        String anionac = parts[0]; 
-        String mesnaci = parts[1]; 
-        String dianaci = parts[2]; 
-        
-        
-        ano_actual = Integer.parseInt(anioactual);
-        ano_nacimiento = Integer.parseInt(anionac);
-        dia_actual = Integer.parseInt(diaactual);
-        dia_nacimiento = Integer.parseInt(dianaci);
-        dias_del_mes=0;
-        mes_actual = Integer.parseInt(mesactual);
-        mes_nacimiento = Integer.parseInt(mesnaci);
-        
-        
-        if(mes_actual==1||mes_actual==3||mes_actual==5||mes_actual==7||mes_actual==8||mes_actual==10||mes_actual==12)
-            dias_del_mes=31;
-        if(mes_actual==2)
-            dias_del_mes=28;
-        if(mes_actual==4||mes_actual==6||mes_actual==9||mes_actual==11)
-            dias_del_mes=30;
-        int anos1=ano_actual-ano_nacimiento;
-        if(anos1>0){
-            anos=ano_actual-ano_nacimiento;                             
-         }else{
-              anos=0;     
-            }
-        meses=mes_actual-mes_nacimiento;
-        dias=dia_actual-dia_nacimiento;
-        if(dias<0)
-        {
-            dias=dias+dias_del_mes;
-            meses=meses-1;
-        }
-        if(meses<0)
-        {
-            meses=meses+12;
-            anos=anos-1;
-        } 
-        
-        out.println(anos + " Años  ");
-        out.println(meses + " meses y ");
-        out.println(dias + " dias" );
-        
+                                        <%
+                                            int ano_actual, ano_nacimiento, anos, dia_actual, dia_nacimiento;
+                                            int dias, dias_del_mes, mes_actual, mes_nacimiento, meses;
 
-%>
-                                    
-                                    
-                                    
-                                    
+                                            Date dNow = new Date();
+                                            SimpleDateFormat ft = new SimpleDateFormat("yyyy");
+                                            String anioactual = ft.format(dNow);
+
+                                            SimpleDateFormat ft1 = new SimpleDateFormat("M");
+                                            String mesactual = ft1.format(dNow);
+
+                                            SimpleDateFormat ft2 = new SimpleDateFormat("dd");
+                                            String diaactual = ft2.format(dNow);
+
+                                            String string = clien.getFecha_naci_persona();
+                                            String[] parts = string.split("-");
+                                            String anionac = parts[0];
+                                            String mesnaci = parts[1];
+                                            String dianaci = parts[2];
+
+                                            ano_actual = Integer.parseInt(anioactual);
+                                            ano_nacimiento = Integer.parseInt(anionac);
+                                            dia_actual = Integer.parseInt(diaactual);
+                                            dia_nacimiento = Integer.parseInt(dianaci);
+                                            dias_del_mes = 0;
+                                            mes_actual = Integer.parseInt(mesactual);
+                                            mes_nacimiento = Integer.parseInt(mesnaci);
+
+                                            if (mes_actual == 1 || mes_actual == 3 || mes_actual == 5 || mes_actual == 7 || mes_actual == 8 || mes_actual == 10 || mes_actual == 12) {
+                                                dias_del_mes = 31;
+                                            }
+                                            if (mes_actual == 2) {
+                                                dias_del_mes = 28;
+                                            }
+                                            if (mes_actual == 4 || mes_actual == 6 || mes_actual == 9 || mes_actual == 11) {
+                                                dias_del_mes = 30;
+                                            }
+                                            int anos1 = ano_actual - ano_nacimiento;
+                                            if (anos1 > 0) {
+                                                anos = ano_actual - ano_nacimiento;
+                                            } else {
+                                                anos = 0;
+                                            }
+                                            meses = mes_actual - mes_nacimiento;
+                                            dias = dia_actual - dia_nacimiento;
+                                            if (dias < 0) {
+                                                dias = dias + dias_del_mes;
+                                                meses = meses - 1;
+                                            }
+                                            if (meses < 0) {
+                                                meses = meses + 12;
+                                                anos = anos - 1;
+                                            }
+                                            out.println(anos + " Años  ");
+                                            out.println(meses + " meses y ");
+                                            out.println(dias + " dias");
+
+
+                                        %>
+
+
+
+
                                     </td>
                                     <td><%=clien.getNacioalidad_persona()%></td>
                                     <td><%=clien.getEmpresa_persona()%></td>
@@ -137,9 +133,9 @@
 
 
                                 </tr>
-                                <%  
-                                            }
-                                             }
+                                <%
+                                        }
+                                    }
                                 %>
                             </tbody>
                         </table>
@@ -167,7 +163,6 @@
                     <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
                 </button>
             </div>
-
             <form name="frmnuevo" method="post">
                 <div class="modal-body">
 
@@ -178,262 +173,150 @@
                     </div>
 
                     <div class="row mt-3">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-                    <label for="uname" class="font-weight-light">Nombres</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <label for="uname" class="font-weight-light">Nombres</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control"  id="txtnomn" placeholder="Ingrese Nombres" name="nombres" required>
+                            </div>
                         </div>
-                        <input type="text" class="form-control"  id="txtnomn" placeholder="Ingrese Nombres" name="nombres" required>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <label for="uname" class="font-weight-light">Apellidos:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control"  id="txtapen" placeholder="Ingrese Apellidos" name="apellidos" required>
+                                <div class="valid-feedback">Válido.</div>
+                                <div class="invalid-feedback">Por favor llena este campo.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <label for="uname" class="font-weight-light">Tipo Documento</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                </div>
+                                <select class="form-control" name="tipodoc" id="tipodocn">
+                                    <%if (session.getAttribute("listadocumentos") != null) {
+                                            List<Tipodocumento> lstdocume = (List<Tipodocumento>) session.getAttribute("listadocumentos");
+                                            for (int i = 0; i < lstdocume.size(); i++) {
+                                                Tipodocumento td = lstdocume.get(i);
 
+                                    %>
+
+                                    <option value="<%=td.getId_tipo_documento()%>"><%=td.getDes_tipo_documento()%></option>
+
+                                    <%
+
+                                    }
+                                }%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+
+                            <label for="uname" class="font-weight-light">Numero Documento</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-address-card "></i></span>
+                                </div>
+                                <input type="text" class="form-control"  id="txtnumeron" placeholder="Ingrese Apellidos" name="numerodocumento" required>
+
+                            </div>
+                        </div>
                     </div>
-            
-            
-            
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-             <label for="uname" class="font-weight-light">Apellidos:</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <label for="uname" class="font-weight-light">Nacionalidad</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                </div>
+                                <select class="form-control" name="nacion" id="txtnacion">
+                                    <option>Seleccione una Nacionalidad</option>
+                                    <option value="Peruana">Perú</option>
+                                    <option value="Venezolana">Venezuela</option>
+                                </select>    
+                                <!--<input type="text" class="form-control"  id="txtnacion" placeholder="Ingrese Apellidos" name="nacionalidad" required> -->
+                            </div>
                         </div>
-                        <input type="text" class="form-control"  id="txtapen" placeholder="Ingrese Apellidos" name="apellidos" required>
-                        <div class="valid-feedback">Válido.</div>
-                        <div class="invalid-feedback">Por favor llena este campo.</div>
+                        <div class="col-lg-3 col-6">
+                        <label for="uname" class="font-weight-light">Empresa</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-building"></i></span>
+                                </div>
+                                <input type="text" class="form-control"  id="txtempresan" placeholder="Ingrese Apellidos" name="empresa" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Email</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                </div>
+                                <input type="text" class="form-control"  id="txtemailn" placeholder="Ingrese Correo" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Teléfono</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="txttelfn" placeholder="Ingrese Telefono" name="telf" required>
+                            </div>
+                        </div> 
                     </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           <label for="uname" class="font-weight-light">Tipo Documento</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Dirección</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="txtdirn" placeholder="Ingrese Direccion" name="direccion" required>
+                            </div>
                         </div>
-                        <select class="form-control" name="tipodoc" id="tipodocn">
-                            <%if(session.getAttribute("listadocumentos") != null){
-                            List<Tipodocumento> lstdocume = (List<Tipodocumento>)session.getAttribute("listadocumentos");
-                            for(int i=0; i < lstdocume.size(); i++){
-                            Tipodocumento td = lstdocume.get(i);
-                             
-                            %>
-
-                            <option value="<%=td.getId_tipo_documento()%>"><%=td.getDes_tipo_documento()%></option>
-
-                            <%
-                                   
-                                }
-                                    }%>
-                        </select>
-
+                        <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Sexo</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-venus-mars "></i></span>
+                                </div>
+                                <select class="form-control" name="sexo" id="sexon">
+                                    <option>Seleccione un Sexo</option>
+                                    <option value="M">Masculino</option>
+                                    <option  value="F">Femenino</option>
+                                </select>   
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <label for="uname" class="font-weight-light">Fecha Nac.</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input type="date" class="form-control"  id="txtedadn" placeholder="Ingrese Fecha de Nacimiento" name="edad" required>
+                            </div>
+                        </div>         
                     </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           
-                    <label for="uname" class="font-weight-light">Numero Documento</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-address-card "></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtnumeron" placeholder="Ingrese Apellidos" name="numerodocumento" required>
-
-                    </div>
-          </div>
-          <!-- ./col -->
-        </div>
-                    
-            
-
-          <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           
-<label for="uname" class="font-weight-light">Cargo</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-address-book"></i></span>
-                        </div>
-
-                        <select class="form-control" name="descargo" id="descargon">
-                            <%if(session.getAttribute("listacargos") != null){
-                            List<Cargo> lstcargo = (List<Cargo>)session.getAttribute("listacargos");
-                            for(int i=0; i < lstcargo.size(); i++){
-                            Cargo cargos = lstcargo.get(i);
-                               
-                            %>
-
-                            <option value="<%=cargos.getId_cargo()%>"><%=cargos.getDes_cargo()%></option>
-
-                            <%
-                                   
-                                }
-                                    }%>
-                        </select> 
-
-
-                    </div>  
-            
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-             <label for="uname" class="font-weight-light">Nacionalidad</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-flag"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtnacion" placeholder="Ingrese Apellidos" name="nacionalidad" required>
-
-                    </div>
-
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <label for="uname" class="font-weight-light">Empresa</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-building"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtempresan" placeholder="Ingrese Apellidos" name="empresa" required>
-
-                    </div>
-
-
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           
-                   <label for="uname" class="font-weight-light">Email</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-at"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtemailn" placeholder="Ingrese Apellidos" name="email" required>
-
-                    </div>
-
-          </div>
-          <!-- ./col -->
-        </div>
-                        
-                        
-         
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-                  
-            
-                    <label for="uname" class="font-weight-light">Teléfono</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="txttelfn" placeholder="Ingrese Apellidos" name="telf" required>
-
-                    </div>
-
-            
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-             
-                    <label for="uname" class="font-weight-light">Dirección</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="txtdirn" placeholder="Ingrese Apellidos" name="direccion" required>
-
-                    </div>
-
-
-
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           
-                    <label for="uname" class="font-weight-light">Sexo</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-venus-mars "></i></span>
-                        </div>
-
-                        <select class="form-control" name="sexo" id="sexon">
-                            <option>Seleccione un Sexo</option>
-                            <option value="M">Masculino</option>
-                            <option  value="F">Femenino</option>
-
-                        </select>   
-
-
-
-                    </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           
-                       
-             <label for="uname" class="font-weight-light">Fecha Nac.</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                           
-                        </div>
-                        <input type="date" class="form-control"  id="txtedadn" placeholder="Ingrese Apellidos" name="edad" required>
-
-                    </div>
-          </div>
-          <!-- ./col -->
-        </div>
-
-
-                    
- <div class="row">
-          
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-        
-                    
-          </div>
-          <!-- ./col -->
-        </div>
-                   
-
-
-
-
-
-                    
-
                 </div>
                 <div class="modal-footer">
-
                     <button type="button" class="btn btn-primary" onclick="Agregar()">Agregar</button>
                 </div>
             </form>
-
-
         </div>
-
-
-
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-
 
 
 <!-- MODALLLLL EDITAR -->
@@ -446,10 +329,9 @@
                     <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
                 </button>
             </div>
-
+            
             <form name="frmMnt" method="post">
                 <div class="modal-body">
-
                     <div class="alert alert-info alert-styled-left text-blue-800 content-group modal-title">
                         <span class="text-semibold">Estimado usuario</span>
                         Los campos con <span class="text-danger"> * </span> son necesarios.
@@ -678,7 +560,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         var table;
         table = $('#tablaClientes').DataTable({
             "paging": true,
@@ -894,22 +776,14 @@
             }
         });
     });
-
-
-
 </script> 
 
 <script>
-
     $('#tbclientes').on('click', 'tr td', function (evt) {
-
-        var target, codigo, iddocumento, idcargo, idestado, nom, ape, td, nd, edad, nacio, empresa, email, telf, dir, sex, cargo, estado, usu, clave;
+        var target, codigo, iddocumento,nom, ape, td, nd, edad, nacio, empresa, email, telf, dir, sex;
         target = $(event.target);
         codigo = target.parent().data('idcodigo');
         iddocumento = target.parent().data('iddocumento');
-        idcargo = target.parent().data('idcargo');
-        idestado = target.parent().data('idestado');
-
         nom = target.parent("tr").find("td").eq(0).html();
         ape = target.parent("tr").find("td").eq(1).html();
         nd = target.parent("tr").find("td").eq(3).html();
@@ -920,10 +794,6 @@
         telf = target.parent("tr").find("td").eq(9).html();
         dir = target.parent("tr").find("td").eq(10).html();
         sex = target.parent("tr").find("td").eq(11).html();
-        cargo = target.parent("tr").find("td").eq(12).html();
-        usu = target.parent("tr").find("td").eq(14).html();
-        clave = target.parent("tr").find("td").eq(15).html();
-
 
         $("#txtnom").val(nom);
         $("#txtape").val(ape);
@@ -935,19 +805,13 @@
         $("#txttelf").val(telf);
         $("#txtdir").val(dir);
         $("#sexo").val(sex);
-        $("#txtusu").val(usu);
-        $("#txtclave").val(clave);
         $("#tipodoc").val(iddocumento);
-        $("#descargo").val(idcargo);
-        $("#estado").val(idestado);
         $("#txtcodigo").val(codigo);
 
         $("#modal-editar").modal('show');
     });
 
-  function Actualizar() {
-
-
+    function Actualizar() {
         Swal.fire({
             title: '<strong style="color:black;font-family:OswaldLight;">¿ Desea Modificar los datos del Registro ?</strong>',
             text: 'Asegurese de que todos los datos sean los correctos',
@@ -968,22 +832,22 @@
                 $('.modal-backdrop').remove();
                 $('#modal-nuevo').hide();
                 $('#modal-nuevo').removeClass('show');
-               var id = document.getElementById("txtcodigo").value;
-               var nombres = document.getElementById("txtnom").value;
-               var apellidos = document.getElementById("txtape").value;
-               var tpdoc = document.getElementById("tipodoc").value;
-               var numero = document.getElementById("txtnumero").value;
-               var edad = document.getElementById("txtedad").value;
-               var nacio = document.getElementById("txtnacio").value;
-               var empresa = document.getElementById("txtempresa").value;
-               var correo = document.getElementById("txtemail").value;
-               var telf = document.getElementById("txttelf").value;
-               var dir = document.getElementById("txtdir").value;
-               var sexo = document.getElementById("sexo").value;
-               var cargo = document.getElementById("descargo").value;
-               var estado = document.getElementById("estado").value;
-               var usu = document.getElementById("txtusu").value;
-               var clave = document.getElementById("txtclave").value;
+                var id = document.getElementById("txtcodigo").value;
+                var nombres = document.getElementById("txtnom").value;
+                var apellidos = document.getElementById("txtape").value;
+                var tpdoc = document.getElementById("tipodoc").value;
+                var numero = document.getElementById("txtnumero").value;
+                var edad = document.getElementById("txtedad").value;
+                var nacio = document.getElementById("txtnacio").value;
+                var empresa = document.getElementById("txtempresa").value;
+                var correo = document.getElementById("txtemail").value;
+                var telf = document.getElementById("txttelf").value;
+                var dir = document.getElementById("txtdir").value;
+                var sexo = document.getElementById("sexo").value;
+                var cargo = document.getElementById("descargo").value;
+                var estado = document.getElementById("estado").value;
+                var usu = document.getElementById("txtusu").value;
+                var clave = document.getElementById("txtclave").value;
 
 
                 jQuery.ajax({
@@ -999,7 +863,7 @@
                         Swal.fire({
                             html: 'El registro se está Modificando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
                             imageUrl: 'ICONOS/logobiomed.png',
-                            imageAlt:      'Biomed',
+                            imageAlt: 'Biomed',
                             imageWidth: '100px',
                             allowOutsideClick: false,
                             showConfirmButton: false
@@ -1074,104 +938,98 @@
         }).then((result) => {
             if (result.value) {
 
-               
+
                 var nombres = document.getElementById("txtnomn").value;
                 var apellidos = document.getElementById("txtapen").value;
-                if(nombres==="" || apellidos === ""){
-                      Swal.fire({
-          title: '<strong>Atención</strong>',
-          text:"Los campos no pueden estar vacíos",
-          type: 'warning'
-       
+                if (nombres === "" || apellidos === "") {
+                    Swal.fire({
+                        title: '<strong>Atención</strong>',
+                        text: "Los campos no pueden estar vacíos",
+                        type: 'warning'
+
                     });
-                }else{
-               
-                var tpdoc = document.getElementById("tipodocn").value;
-                var numero = document.getElementById("txtnumeron").value;
-                var edad = document.getElementById("txtedadn").value;
-                var nacio = document.getElementById("txtnacion").value;
-                var empresa = document.getElementById("txtempresan").value;
-                var correo = document.getElementById("txtemailn").value;
-                var telf = document.getElementById("txttelfn").value;
-                var dir = document.getElementById("txtdirn").value;
-                var sexo = document.getElementById("sexon").value;
-                var cargo = document.getElementById("descargon").value;
-                var estado = document.getElementById("estadon").value;
-                var usu = document.getElementById("txtusun").value;
-                var clave = document.getElementById("txtclaven").value;
+                } else {
+
+                    var tpdoc = document.getElementById("tipodocn").value;
+                    var numero = document.getElementById("txtnumeron").value;
+                    var edad = document.getElementById("txtedadn").value;
+                    var nacio = document.getElementById("txtnacion").value;
+                    var empresa = document.getElementById("txtempresan").value;
+                    var correo = document.getElementById("txtemailn").value;
+                    var telf = document.getElementById("txttelfn").value;
+                    var dir = document.getElementById("txtdirn").value;
+                    var sexo = document.getElementById("sexon").value;
+
+                    jQuery.ajax({
+                        url: 'ControladorCliente?menu=Cliente&accion=Agregar&nom=' + nombres +
+                                '&ape=' + apellidos + '&tpdoc=' + tpdoc +
+                                '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
+                                '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo,
+                        type: 'POST',
+                        dataType: 'html',
+                        data: $("#frmodi").serialize(),
+                        beforeSend: function () {
+                            Swal.fire({
+                                html: 'El registro se está Insertando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
+                                imageUrl: 'ICONOS/logobiomed.png',
+                                imageAlt: 'Biomed',
+                                imageWidth: '100px',
+                                allowOutsideClick: false,
+                                showConfirmButton: false
+
+                            });
+                        }
+                    }).done(function (res) {
+
+                        if (res !== "") {
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                            $('#modal-nuevo').hide();
+                            $('#modal-nuevo').removeClass('show');
+                            buscar_datos();
+
+                            console.log(res);
+                            Swal.fire({
+                                title: '<strong>Felicidades</strong>',
+                                text: "El Registro se ha insertado con éxito",
+                                type: 'success',
+                                allowOutsideClick: false,
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ok',
+                                cancelButtonText: 'No, Cancelar'
+                            });
 
 
-                jQuery.ajax({
-                    url: 'ControladorCliente?menu=Cliente&accion=Agregar&nom=' + nombres +
-                            '&ape=' + apellidos + '&tpdoc=' + tpdoc +
-                            '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
-                            '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo +
-                            '&cargo=' + cargo + '&estado=' + estado + '&usu=' + usu + '&clave=' + clave,
-                    type: 'POST',
-                    dataType: 'html',
-                    data: $("#frmodi").serialize(),
-                    beforeSend: function () {
-                        Swal.fire({
-                            html: 'El registro se está Insertando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
-                            imageUrl: 'ICONOS/logobiomed.png',
-                            imageAlt: 'Biomed',
-                            imageWidth: '100px',
-                            allowOutsideClick: false,
-                            showConfirmButton: false
+                        } else {
+                            Swal.fire({
+                                title: '<strong>Error</strong>',
+                                text: "El Registro con el mismo numero de identificación ya existe",
+                                type: 'error',
+                                allowOutsideClick: false,
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ok',
+                                cancelButtonText: 'No, Cancelar'
+                            });
 
-                        });
-                    }
-                }).done(function (res) {
-
-                    if (res !== "") {
-                         $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-                $('#modal-nuevo').hide();
-                $('#modal-nuevo').removeClass('show');
-                        buscar_datos();
-
-                        console.log(res);
-                        Swal.fire({
-                            title: '<strong>Felicidades</strong>',
-                            text: "El Registro se ha insertado con éxito",
-                            type: 'success',
-                            allowOutsideClick: false,
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ok',
-                            cancelButtonText: 'No, Cancelar'
-                        });
-
-
-                    } else {
-                         Swal.fire({
-                            title: '<strong>Error</strong>',
-                            text: "El Registro con el mismo numero de identificación ya existe",
-                            type: 'error',
-                            allowOutsideClick: false,
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ok',
-                            cancelButtonText: 'No, Cancelar'
-                        });
-
-                    }
+                        }
 
 
 
 
 
 
-                })
-                        .fail(function (resp) {
-                            console.log(resp.responseText);
-                        })
-                        ;
+                    })
+                            .fail(function (resp) {
+                                console.log(resp.responseText);
+                            })
+                            ;
 
 
-            }
+                }
 
             } else {
                 return false;

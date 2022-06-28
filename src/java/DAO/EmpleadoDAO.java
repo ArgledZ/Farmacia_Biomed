@@ -81,7 +81,7 @@ public class EmpleadoDAO {
                 em.setId_persona(parseInt(rs.getString("Id_persona")));
                 em.setNom_persona(rs.getString("Nom_persona"));
                 em.setApe_persona(rs.getString("Ape_persona"));
-                em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
+                //em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento"),rs.getString("Des_tipo_documento")));
                 em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
                 //em.setFecha_naci_persona(rs.getString("Fecha_naci_persona"));
@@ -164,11 +164,7 @@ public class EmpleadoDAO {
           
            
            confirmacion2 = cstm.execute();
-               
                     return false;
-        
-         
-              
                  }
              
           

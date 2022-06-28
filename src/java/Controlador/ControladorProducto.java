@@ -5,8 +5,14 @@
  */
 package Controlador;
 
+import DAO.CategoriaDAO;
+import DAO.LoteDAO;
 import DAO.ProductoDAO;
+import DAO.ProveedorDAO;
+import Entidades.Lote;
 import Entidades.Producto;
+import Entidades.Categoria;
+import Entidades.Proveedor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -35,8 +41,11 @@ public class ControladorProducto extends HttpServlet {
      */
     
     private HttpSession sesion;
-    Producto obj = new Producto();
-    ProductoDAO objdao = new ProductoDAO();
+    Lote obj = new Lote();
+    LoteDAO objDao = new LoteDAO();
+    CategoriaDAO cateDao = new CategoriaDAO();
+    ProductoDAO prodDao  = new ProductoDAO();
+    ProveedorDAO provDao = new ProveedorDAO();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,20 +63,108 @@ public class ControladorProducto extends HttpServlet {
                     sesion.removeAttribute("listaProveedores");
                     sesion.removeAttribute("listaClientes");
                     sesion.removeAttribute("listaEmpleado");
-                    List lista = objdao.listarProductos();
-                    sesion.setAttribute("listaProductos", lista);
+                    List lista = objDao.listarLote();
+                    sesion.setAttribute("listaProductos", lista);                   
+                    List listapr = prodDao.listarProductos();
+                    sesion.setAttribute("listadeProductos", listapr);
+                    List listapv = cateDao.listarCategorias();
+                    sesion.setAttribute("listadeCategorias", listapv);
+                    List listaca = provDao.listarProveedores();
+                    sesion.setAttribute("listadeProveedores", listaca);
                     
-                    /*
-                    List listatd = tpdoc.listardocumentos();
-                    sesion.setAttribute("listadocumentos", listatd);
-                    
-                    List listacar = cargo.listarCargos();
-                    sesion.setAttribute("listacargos", listacar);
-
-                    List listaestado = estado.listarEstados();
-                    sesion.setAttribute("listaestado", listaestado);
-                    */
         response.sendRedirect("Producto.jsp");
+        }
+        
+        if (menu.equals("Producto")) {
+            switch (accion) {
+                case "Listar":
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List lista = objDao.listarLote();
+                    sesion.setAttribute("listaProductos", lista);                   
+                    List listapr = prodDao.listarProductos();
+                    sesion.setAttribute("listadeProductos", listapr);
+                    List listapv = cateDao.listarCategorias();
+                    sesion.setAttribute("listadeCategorias", listapv);
+                    List listaca = provDao.listarProveedores();
+                    sesion.setAttribute("listadeProveedores", listaca);
+
+                    break;
+
+                case "Agregar":
+               
+                    obj.setId_lote(Integer.parseInt(request.getParameter("numero")));
+                    obj.getCategoria().setId_categoria(Integer.parseInt(request.getParameter("numero")));
+                    obj.getProducto().setId_producto(Integer.parseInt(request.getParameter("numero")));
+                    obj.getProducto().setReg_sanitario(request.getParameter("nom"));
+                    obj.getProducto().setNombre_producto(request.getParameter("nom"));
+                    obj.getProducto().setPrecio_compra(request.getParameter("nom"));
+                    obj.getProducto().setPrecio_venta(request.getParameter("nom"));
+                    obj.getProducto().setConcentracion_producto(request.getParameter("nom"));
+                    obj.setFecha_vencimiento(request.getParameter("nom"));
+                    obj.getProveedor().setId_persona(Integer.parseInt(request.getParameter("numero")));
+                    obj.getProveedor().setNom_persona(request.getParameter("nom"));
+                    
+                    boolean resp = objDao.insertar(obj);
+
+                   if (resp == true) {
+                        
+                   } else {
+                                                     
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List listaobj = objDao.listarLote();
+                    sesion.setAttribute("listaProductos", listaobj);                   
+                    List listaprobj = prodDao.listarProductos();
+                    sesion.setAttribute("listadeProductos", listaprobj);
+                    List listapvobj = cateDao.listarCategorias();
+                    sesion.setAttribute("listadeCategorias", listapvobj);
+                    List listacaobj = provDao.listarProveedores();
+                    sesion.setAttribute("listadeProveedores", listacaobj);
+                    
+                    response.sendRedirect("Producto.jsp");           
+                    }
+
+                    //request.getRequestDispatcher("Controladorempleado1?menu=Empleado&accion=Listar");
+                    break;
+
+                case "Eliminar":
+                    
+                    obj.getProducto().setId_producto(Integer.parseInt(request.getParameter("id")));
+                    objDao.Eliminar(obj.getProducto());
+                    sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
+                    sesion.removeAttribute("listaClientes");
+                    sesion.removeAttribute("listaEmpleado");
+                    List listaobj = objDao.listarLote();
+                    sesion.setAttribute("listaProductos", listaobj);                   
+                    List listaprobj = prodDao.listarProductos();
+                    sesion.setAttribute("listadeProductos", listaprobj);
+                    List listapvobj = cateDao.listarCategorias();
+                    sesion.setAttribute("listadeCategorias", listapvobj);
+                    List listacaobj = provDao.listarProveedores();
+                    sesion.setAttribute("listadeProveedores", listacaobj);
+                    
+                    response.sendRedirect("Producto.jsp");                                 
+                    //request.getRequestDispatcher("Controladorempleado1?menu=Empleado&accion=Listar");
+                    break;
+
+                case "Editar":
+
+                    
+                    break;
+                default:
+                    throw new AssertionError();
+
+            }
+            
         }
         
         

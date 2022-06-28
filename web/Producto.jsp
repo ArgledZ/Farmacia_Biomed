@@ -725,13 +725,13 @@ if (session.getAttribute("usuario")!= null){
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Mantenimiento a Clientes</h1>
+                                <h1>Mantenimiento a Productos</h1>
 
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active">Clientes</li>
+                                    <li class="breadcrumb-item active">Productos</li>
                                 </ol>
                             </div>
                         </div>
@@ -793,7 +793,7 @@ $(document).ready(function(){
 
  function buscar_datos(){
   jQuery.ajax({
-    url:'Datos-Cliente.jsp',
+    url:'Datos-Producto.jsp',
     type:'POST',
     dataType:'html',
    
