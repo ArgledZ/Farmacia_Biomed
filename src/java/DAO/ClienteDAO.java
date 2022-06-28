@@ -14,12 +14,8 @@ import java.util.List;
 
 public class ClienteDAO {
 
-        public List listarClientes(){
-            EmpleadoDAO cldao = new EmpleadoDAO();
-            List lista=null;       
-            return lista;
-        }
-        /*public List<Cliente> listarClientes(){
+        
+        public List<Cliente> listarClientes(){
         Connection con=null;
         CallableStatement cstm = null;
         ResultSet rs=null;
@@ -29,7 +25,7 @@ public class ClienteDAO {
         try {
             con=Conexion.getConection();
            
-           cstm = con.prepareCall("{ SELECT P.id_persona,P.Nom_persona,P.Ape_persona,P.Id_tipo_documento,P.numero_identificacion,P.edad_persona,P.Nacionalidad_persona,P.Empresa_persona,P.Correo_persona,P.Telf_persona,P.Fecha_naci_persona,P.Dir_persona,P.Sex_persona, C.Fec_regis_cliente,C.Puntos,TD.Des_tipo_documento FROM cliente C INNER JOIN persona P ON C.Id_persona=P.Id_persona INNER JOIN tipo_documento TD ON P.Id_tipo_documento=TD.Id_tipo_documento WHERE P.eliminado=0;} ");
+           cstm = con.prepareCall("{ call palistarcliente() } ");
              
             list=new ArrayList<>();
             Cliente em=null;
@@ -52,6 +48,7 @@ public class ClienteDAO {
                 em.setSex_persona(rs.getString("Sex_persona"));
                 em.setFec_regis_cliente(rs.getDate("Fec_regis_cliente"));
                 em.setPuntos(rs.getInt("puntos"));
+                em.setFecha_naci_persona(rs.getString("Fecha_naci_persona"));
                 
                 list.add(em);
             }
@@ -69,7 +66,7 @@ public class ClienteDAO {
             }  
         }    
         return list;
-    }*/
+    }
         
     //INSERTAR
         

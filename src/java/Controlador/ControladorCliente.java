@@ -51,8 +51,10 @@ public class ControladorCliente extends HttpServlet {
         }
         if(menu.equals("Clientes")){
             sesion = request.getSession();
+                    sesion.removeAttribute("listaProductos");
+                    sesion.removeAttribute("listaProveedores");
                     sesion.removeAttribute("listaClientes");
-                    sesion.removeAttribute("listaEmpleado");
+                    sesion.removeAttribute("listaEmpleado");;
                     List lista = cldao.listarClientes();
                     sesion.setAttribute("listaClientes", lista);
                     

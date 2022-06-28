@@ -1,7 +1,8 @@
-<%@page import="Entidades.Empleado"%>
+<%@page import="Entidades.Cliente"%>
+
 <%@page import="Entidades.Cargo"%>
 <%@page import="Entidades.Tipodocumento"%>
-<%@page import="Entidades.Estadoempleado"%>
+
 <%@page import="java.util.List"%>  
 <%@page import="java.util.*" %>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -20,8 +21,8 @@
                 <div class="card-body">
 
                     <div class="alert alert-info alert-styled-left text-blue-800 content-group d-flex justify-content-between">
-                        <div> <span class="btn text-semibold text-light"><i class="icon fas fa-user"></i>Lista de Empleados</span></div>
-                        <div><button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#modal-nuevo"><i class="fa fa-user-plus"></i> Nuevo Empleado</button></div>
+                        <div> <span class="btn text-semibold text-light"><i class="icon fas fa-user"></i>Lista de Clientes</span></div>
+                        <div><button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#modal-nuevo"><i class="fa fa-user-plus"></i> Nuevo Cliente</button></div>
 
 
                     </div>
@@ -45,22 +46,23 @@
                                     <th>Sexo</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbempleados">
+                            <tbody id="tbclientes">
                                 <%if(session.getAttribute("listaClientes") != null){
-                                              List<Empleado> lstEmpleados = (List<Empleado>)session.getAttribute("listaClientes");
-                                              for(int i=0; i < lstEmpleados.size(); i++){
-                                                  Empleado emple = lstEmpleados.get(i);
+                                              List<Cliente> lstClientes = (List<Cliente>)session.getAttribute("listaClientes");
+                                              for(int i=0; i < lstClientes.size(); i++){
+                                                  Cliente clien = lstClientes.get(i);
                                 %>
 
-                                <tr data-idcodigo="<%=emple.getId_persona()%>" data-iddocumento="<%=emple.getTipodocumento().getId_tipo_documento()%>">
-                                    <td><%=emple.getNom_persona()%></td>
-                                    <td><%=emple.getApe_persona()%></td>
-                                    <td><%=emple.getTipodocumento().getDes_tipo_documento()%></td>
-                                    <td><%=emple.getNumero_identicacion()%></td>
-                                    <td><%=emple.getFecha_naci_persona()%></td>
+                                <tr data-idcodigo="<%=clien.getId_persona()%>" data-iddocumento="<%=clien.getTipodocumento().getId_tipo_documento()%>">
+                                    <td><%=clien.getNom_persona()%></td>
+                                    <td><%=clien.getApe_persona()%></td>
+                                    <td><%=clien.getTipodocumento().getDes_tipo_documento()%></td>
+                                    <td><%=clien.getNumero_identicacion()%></td>
+                                    <td><%=clien.getFecha_naci_persona()%></td>
                                     <td>
                                     <%
-   
+                                    
+                                            
         int ano_actual, ano_nacimiento, anos, dia_actual, dia_nacimiento;
         int dias, dias_del_mes, mes_actual, mes_nacimiento, meses;
         
@@ -74,7 +76,7 @@
         SimpleDateFormat ft2 = new SimpleDateFormat ("dd");
         String diaactual = ft2.format(dNow);
         
-        String string = emple.getFecha_naci_persona();
+        String string = clien.getFecha_naci_persona();
         String[] parts = string.split("-");
         String anionac = parts[0]; 
         String mesnaci = parts[1]; 
@@ -119,19 +121,19 @@
         out.println(meses + " meses y ");
         out.println(dias + " dias" );
         
-  
+
 %>
                                     
                                     
                                     
                                     
                                     </td>
-                                    <td><%=emple.getNacioalidad_persona()%></td>
-                                    <td><%=emple.getEmpresa_persona()%></td>
-                                    <td><%=emple.getCorreo_persona()%></td>
-                                    <td><%=emple.getTelf_persona()%></td>
-                                    <td><%=emple.getDir_persona()%></td>
-                                    <td><%=emple.getSex_persona()%></td>
+                                    <td><%=clien.getNacioalidad_persona()%></td>
+                                    <td><%=clien.getEmpresa_persona()%></td>
+                                    <td><%=clien.getCorreo_persona()%></td>
+                                    <td><%=clien.getTelf_persona()%></td>
+                                    <td><%=clien.getDir_persona()%></td>
+                                    <td><%=clien.getSex_persona()%></td>
 
 
                                 </tr>
@@ -160,7 +162,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Nuevo Empleado</h4>
+                <h4 class="modal-title">Nuevo Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
                 </button>
@@ -397,59 +399,7 @@
 
                     
  <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-                  
-            <label for="uname" class="font-weight-light">Estado</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
-                        </div>
-                        <select class="form-control" name="estado" id="estadon">
-                            <%if(session.getAttribute("listaestado") != null){
-                            List<Estadoempleado> lstestado = (List<Estadoempleado>)session.getAttribute("listaestado");
-                            for(int i=0; i < lstestado.size(); i++){
-                            Estadoempleado estado = lstestado.get(i);
-                              
-                            %>
-
-                            <option value="<%=estado.getId_estadoempleado()%>"><%=estado.getDes_estadoempleado()%></option>
-
-                            <%
-                                   
-                                }
-                                    }%>
-                        </select> 
-
-
-                    </div>
-            
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-             <label for="uname" class="font-weight-light">Usuario</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtusun" placeholder="Ingrese Apellidos" name="usuario" required>
-
-                    </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-           <label for="uname" class="font-weight-light">Clave</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtclaven" placeholder="Ingrese Apellidos" name="clave" required>
-
-                    </div>
-
-          </div>
+          
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -491,7 +441,7 @@
     <div class="modal-dialog modal-default">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar Datos del Empleado</h4>
+                <h4 class="modal-title">Editar Datos del Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"> <i class="fas fa-window-close"></i></span>
                 </button>
@@ -684,23 +634,6 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
-                        <select class="form-control" name="estado" id="estado">
-                            <%if(session.getAttribute("listaestado") != null){
-                            List<Estadoempleado> lstestado = (List<Estadoempleado>)session.getAttribute("listaestado");
-                            for(int i=0; i < lstestado.size(); i++){
-                            Estadoempleado estado = lstestado.get(i);
-                            if(estado.getId_estadoempleado()==estado.getId_estadoempleado()){ 
-                            %>
-
-                            <option value="<%=estado.getId_estadoempleado()%>" selected><%=estado.getDes_estadoempleado()%></option>
-
-                            <%
-                               }
-                                }
-                                    }%>
-                        </select> 
-
-
                     </div>
 
 
@@ -968,7 +901,7 @@
 
 <script>
 
-    $('#tbempleados').on('click', 'tr td', function (evt) {
+    $('#tbclientes').on('click', 'tr td', function (evt) {
 
         var target, codigo, iddocumento, idcargo, idestado, nom, ape, td, nd, edad, nacio, empresa, email, telf, dir, sex, cargo, estado, usu, clave;
         target = $(event.target);
@@ -1054,7 +987,7 @@
 
 
                 jQuery.ajax({
-                    url: 'Controladorempleado?menu=Empleado&accion=Editar&id=' + id +
+                    url: 'ControladorCliente?menu=Cliente&accion=Editar&id=' + id +
                             '&nom=' + nombres + '&ape=' + apellidos + '&tpdoc=' + tpdoc +
                             '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
                             '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo +
@@ -1066,7 +999,7 @@
                         Swal.fire({
                             html: 'El registro se está Modificando, espere un momento por favor....<br><i class="fa fa-spinner fa-pulse" style="font-size:50px;margint-top:10px;"></i> ',
                             imageUrl: 'ICONOS/logobiomed.png',
-                            imageAlt: 'Biomed',
+                            imageAlt:      'Biomed',
                             imageWidth: '100px',
                             allowOutsideClick: false,
                             showConfirmButton: false
@@ -1169,7 +1102,7 @@
 
 
                 jQuery.ajax({
-                    url: 'Controladorempleado?menu=Empleado&accion=Agregar&nom=' + nombres +
+                    url: 'ControladorCliente?menu=Cliente&accion=Agregar&nom=' + nombres +
                             '&ape=' + apellidos + '&tpdoc=' + tpdoc +
                             '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
                             '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo +
@@ -1278,7 +1211,7 @@
 
 
                 jQuery.ajax({
-                    url: 'Controladorempleado?menu=Empleado&accion=Eliminar&id=' + id,
+                    url: 'ControladorCliente?menu=Cliente&accion=Eliminar&id=' + id,
                     type: 'POST',
                     dataType: 'html',
                     data: $("#frmodi").serialize(),

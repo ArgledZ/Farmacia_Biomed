@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/dist/css/alt/adminlte.core.min.css</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/src/java/DAO/EmpleadoDAO.java</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/src/java/Entidades/Persona.java</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/Datos-Cliente.jsp</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/src/java/DAO/ClienteDAO.java</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/dist/css/alt/adminlte.core.css</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/Cliente.jsp</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/src/java/Entidades/Cliente.java</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/dist/css/adminlte.css</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/src/java/Controlador/ControladorCliente.java</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/dist/css/adminlte.min.css</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/Empleado.jsp</file>
+            <file>file:/E:/DESARROLLO%20DE%20APLICACIONES/Web/Farmacia_Biomed/web/Datos-Empleado.jsp</file>
+        </group>
+    </open-files>
 </project-private>
