@@ -34,7 +34,7 @@ public class EmpleadoDAO {
                 em.setId_persona(parseInt(rs.getString("Id_persona")));
                 em.setNom_persona(rs.getString("Nom_persona"));
                 em.setApe_persona(rs.getString("Ape_persona"));
-                em.setNumero_identicacion(parseInt(rs.getString("numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("numero_identificacion"));
                 em.setUsuario(rs.getString("Usuario"));
                 em.setClave(rs.getString("Clave"));
                
@@ -83,7 +83,7 @@ public class EmpleadoDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 //em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento"),rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("Numero_identificacion"));
                 //em.setFecha_naci_persona(rs.getString("Fecha_naci_persona"));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
@@ -131,7 +131,7 @@ public class EmpleadoDAO {
            try {
         con=Conexion.getConection();
          cstm1 = con.prepareCall("{ call pabuscarempleado(?)} ");
-         cstm1.setInt(1, emple.getNumero_identicacion());
+         cstm1.setString(1, emple.getNumero_identicacion());
            rs = cstm1.executeQuery(); 
           
                    
@@ -149,7 +149,7 @@ public class EmpleadoDAO {
            cstm.setString(1, emple.getNom_persona());
            cstm.setString(2, emple.getApe_persona());
            cstm.setInt(3,emple.getTipodocumento().getId_tipo_documento());
-           cstm.setInt(4,emple.getNumero_identicacion());
+           cstm.setString(4,emple.getNumero_identicacion());
            cstm.setString(5,emple.getFecha_naci_persona());
            cstm.setString(6,emple.getNacioalidad_persona());
            cstm.setString(7,emple.getEmpresa_persona());
@@ -218,7 +218,7 @@ public class EmpleadoDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("id_tipo_documento"),rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("Numero_identificacion"));
                 em.setEdad_persona(parseInt(rs.getString("Edad_persona")));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
@@ -274,7 +274,7 @@ public class EmpleadoDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("id_tipo_documento"),rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("Numero_identificacion"));
                 em.setEdad_persona(parseInt(rs.getString("Edad_persona")));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
@@ -322,7 +322,7 @@ public class EmpleadoDAO {
            cstm.setString(2, emple.getNom_persona());
            cstm.setString(3, emple.getApe_persona());
            cstm.setInt(4,emple.getTipodocumento().getId_tipo_documento());
-           cstm.setInt(5,emple.getNumero_identicacion());
+           cstm.setString(5,emple.getNumero_identicacion());
            cstm.setString(6,emple.getFecha_naci_persona());
            cstm.setString(7,emple.getNacioalidad_persona());
            cstm.setString(8,emple.getEmpresa_persona());

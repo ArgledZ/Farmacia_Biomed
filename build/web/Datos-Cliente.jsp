@@ -335,7 +335,6 @@
                     <div class="alert alert-info alert-styled-left text-blue-800 content-group modal-title">
                         <span class="text-semibold">Estimado usuario</span>
                         Los campos con <span class="text-danger"> * </span> son necesarios.
-
                     </div>
                     <input type="hidden" class="form-control"  id="txtcodigo"  name="txtcodigo">
                     <br> 
@@ -347,7 +346,6 @@
                         <input type="text" class="form-control"  id="txtnom" placeholder="Ingrese Nombres" name="nombres" required>
 
                     </div>
-
                     <label for="uname" class="font-weight-light">Apellidos:</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -357,9 +355,6 @@
                         <div class="valid-feedback">Válido.</div>
                         <div class="invalid-feedback">Por favor llena este campo.</div>
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Tipo Documento</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -372,31 +367,20 @@
                             Tipodocumento td = lstdocume.get(i);
                             if(td.getId_tipo_documento()==td.getId_tipo_documento()){ 
                             %>
-
                             <option value="<%=td.getId_tipo_documento()%>" selected><%=td.getDes_tipo_documento()%></option>
-
                             <%
                                }
                                 }
                                     }%>
                         </select>
-
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Numero Documento</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="txtnumero" placeholder="Ingrese Apellidos" name="numerodocumento" required>
-
                     </div>
-
-
-
-
                     <label for="uname" class="font-weight-light">Fecha Nac.</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -405,66 +389,41 @@
                         <input type="date" class="form-control"  id="txtedad" placeholder="Ingrese Apellidos" name="txtedad" required>
 
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Nacionalidad</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="txtnacio" placeholder="Ingrese Apellidos" name="nacionalidad" required>
-
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Empresa</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="txtempresa" placeholder="Ingrese Apellidos" name="empresa" required>
-
                     </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Email</label>
+                  <label for="uname" class="font-weight-light">Email</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="txtemail" placeholder="Ingrese Apellidos" name="email" required>
-
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Teléfono</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control" id="txttelf" placeholder="Ingrese Apellidos" name="telf" required>
-
                     </div>
-
-
-
                     <label for="uname" class="font-weight-light">Dirección</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="txtdir" placeholder="Ingrese Apellidos" name="direccion" required>
-
                     </div>
-
-
-
-
-
                     <label for="uname" class="font-weight-light">Sexo</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -475,82 +434,15 @@
                             <option>Seleccione un Sexo</option>
                             <option value="M">Masculino</option>
                             <option  value="F">Femenino</option>
-
                         </select>   
-
-
-
                     </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Cargo</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-
-                        <select class="form-control" name="descargo" id="descargo">
-                            <%if(session.getAttribute("listacargos") != null){
-                            List<Cargo> lstcargo = (List<Cargo>)session.getAttribute("listacargos");
-                            for(int i=0; i < lstcargo.size(); i++){
-                            Cargo cargos = lstcargo.get(i);
-                            if(cargos.getId_cargo()==cargos.getId_cargo()){ 
-                            %>
-
-                            <option value="<%=cargos.getId_cargo()%>" selected><%=cargos.getDes_cargo()%></option>
-
-                            <%
-                               }
-                                }
-                                    }%>
-                        </select> 
-
-
-                    </div>
-
-
-
-                    <label for="uname" class="font-weight-light">Estado</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                    </div>
-
-
-                    <label for="uname" class="font-weight-light">Usuario</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtusu" placeholder="Ingrese Apellidos" name="usuario" required>
-
-                    </div>
-
-
-                    <label for="uname" class="font-weight-light">Clave</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="txtclave" placeholder="Ingrese Apellidos" name="clave" required>
-
-                    </div>
-
-
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" onclick="Eliminar()">Eliminar</button>
                     <button type="button" class="btn btn-primary" onclick="Actualizar()">Editar</button>
                 </div>
             </form>
-
-
         </div>
-
-
-
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
@@ -560,7 +452,6 @@
 
 <script>
     $(document).ready(function () {
-
         var table;
         table = $('#tablaClientes').DataTable({
             "paging": true,
@@ -844,18 +735,13 @@
                 var telf = document.getElementById("txttelf").value;
                 var dir = document.getElementById("txtdir").value;
                 var sexo = document.getElementById("sexo").value;
-                var cargo = document.getElementById("descargo").value;
-                var estado = document.getElementById("estado").value;
-                var usu = document.getElementById("txtusu").value;
-                var clave = document.getElementById("txtclave").value;
 
 
                 jQuery.ajax({
                     url: 'ControladorCliente?menu=Cliente&accion=Editar&id=' + id +
                             '&nom=' + nombres + '&ape=' + apellidos + '&tpdoc=' + tpdoc +
                             '&numero=' + numero + '&edad=' + edad + '&nacio=' + nacio + '&empresa=' + empresa +
-                            '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo +
-                            '&cargo=' + cargo + '&estado=' + estado + '&usu=' + usu + '&clave=' + clave,
+                            '&correo=' + correo + '&telf=' + telf + '&dire=' + dir + '&sexo=' + sexo,
                     type: 'POST',
                     dataType: 'html',
                     data: $("#frmodi").serialize(),

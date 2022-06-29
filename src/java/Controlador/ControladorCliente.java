@@ -92,7 +92,7 @@ public class ControladorCliente extends HttpServlet {
                     obj.setNom_persona(request.getParameter("nom"));
                     obj.setApe_persona(request.getParameter("ape"));
                     obj.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
-                    obj.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    obj.setNumero_identicacion(request.getParameter("numero"));
                     obj.setFecha_naci_persona(request.getParameter("edad"));
                     obj.setNacioalidad_persona(request.getParameter("nacio"));
                     obj.setEmpresa_persona(request.getParameter("empresa"));
@@ -143,7 +143,7 @@ public class ControladorCliente extends HttpServlet {
                     obj.setNom_persona(request.getParameter("nom"));
                     obj.setApe_persona(request.getParameter("ape"));
                     obj.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
-                    obj.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    obj.setNumero_identicacion(request.getParameter("numero"));
                     obj.setFecha_naci_persona(request.getParameter("edad"));
                     obj.setNacioalidad_persona(request.getParameter("nacio"));
                     obj.setEmpresa_persona(request.getParameter("empresa"));

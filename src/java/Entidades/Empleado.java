@@ -21,7 +21,7 @@ public class Empleado extends Persona {
 
   
 
-    public Empleado(Cargo cargo, Estadoempleado estadoempleado, String usuario, String clave, int Id_persona, String Nom_persona, String Ape_persona, Tipodocumento tipodocumento, int Numero_identicacion, int Edad_persona, String Nacioalidad_persona, String Empresa_persona, String Correo_persona, String Telf_persona, String Fecha_naci_persona, String Dir_persona, String Sex_persona) {
+    public Empleado(Cargo cargo, Estadoempleado estadoempleado, String usuario, String clave, int Id_persona, String Nom_persona, String Ape_persona, Tipodocumento tipodocumento, String Numero_identicacion, int Edad_persona, String Nacioalidad_persona, String Empresa_persona, String Correo_persona, String Telf_persona, String Fecha_naci_persona, String Dir_persona, String Sex_persona) {
         super(Id_persona, Nom_persona, Ape_persona, tipodocumento, Numero_identicacion, Edad_persona, Nacioalidad_persona, Empresa_persona, Correo_persona, Telf_persona, Fecha_naci_persona, Dir_persona, Sex_persona);
         this.cargo = cargo;
         this.estadoempleado = estadoempleado;

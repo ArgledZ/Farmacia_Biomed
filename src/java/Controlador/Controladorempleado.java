@@ -119,7 +119,7 @@ public class Controladorempleado extends HttpServlet {
                     em.setNom_persona(request.getParameter("nom"));
                     em.setApe_persona(request.getParameter("ape"));
                     em.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
-                    em.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    em.setNumero_identicacion(request.getParameter("numero"));
                     em.setFecha_naci_persona(request.getParameter("edad"));
                     em.setNacioalidad_persona(request.getParameter("nacio"));
                     em.setEmpresa_persona(request.getParameter("empresa"));
@@ -170,7 +170,7 @@ public class Controladorempleado extends HttpServlet {
                     em.setNom_persona(request.getParameter("nom"));
                     em.setApe_persona(request.getParameter("ape"));
                     em.setTipodocumento(new Tipodocumento(Integer.parseInt(request.getParameter("tpdoc"))));
-                    em.setNumero_identicacion(Integer.parseInt(request.getParameter("numero")));
+                    em.setNumero_identicacion(request.getParameter("numero"));
                     em.setFecha_naci_persona(request.getParameter("edad"));
                     em.setNacioalidad_persona(request.getParameter("nacio"));
                     em.setEmpresa_persona(request.getParameter("empresa"));

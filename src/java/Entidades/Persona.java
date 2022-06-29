@@ -10,7 +10,7 @@ public class Persona {
     String Nom_persona;
     private String Ape_persona;
     private Tipodocumento tipodocumento;
-    private int Numero_identicacion;
+    private String Numero_identicacion;
     private int Edad_persona;
     private String Nacioalidad_persona;
     private String Empresa_persona;
@@ -25,7 +25,7 @@ public class Persona {
     
     }
 
-    public Persona(int Id_persona, String Nom_persona, String Ape_persona, Tipodocumento tipodocumento, int Numero_identicacion, int Edad_persona, String Nacioalidad_persona, String Empresa_persona, String Correo_persona, String Telf_persona, String Fecha_naci_persona, String Dir_persona, String Sex_persona) {
+    public Persona(int Id_persona, String Nom_persona, String Ape_persona, Tipodocumento tipodocumento, String Numero_identicacion, int Edad_persona, String Nacioalidad_persona, String Empresa_persona, String Correo_persona, String Telf_persona, String Fecha_naci_persona, String Dir_persona, String Sex_persona) {
         this.Id_persona = Id_persona;
         this.Nom_persona = Nom_persona;
         this.Ape_persona = Ape_persona;
@@ -73,11 +73,11 @@ public class Persona {
         this.tipodocumento = tipodocumento;
     }
 
-    public int getNumero_identicacion() {
+    public String getNumero_identicacion() {
         return Numero_identicacion;
     }
 
-    public void setNumero_identicacion(int Numero_identicacion) {
+    public void setNumero_identicacion(String Numero_identicacion) {
         this.Numero_identicacion = Numero_identicacion;
     }
 

@@ -36,7 +36,7 @@ public class ClienteDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento"), rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("Numero_identificacion"));
                 em.setEdad_persona(parseInt(rs.getString("Edad_persona")));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
@@ -82,7 +82,7 @@ public class ClienteDAO {
         try {
             con = Conexion.getConection();
             cstm1 = con.prepareCall("{ call pabuscarcliente(?)} ");
-            cstm1.setInt(1, cliente.getNumero_identicacion());
+            cstm1.setString(1, cliente.getNumero_identicacion());
             rs = cstm1.executeQuery();
 
             if (rs.next()) {
@@ -96,7 +96,7 @@ public class ClienteDAO {
                 cstm.setString(1, cliente.getNom_persona());
                 cstm.setString(2, cliente.getApe_persona());
                 cstm.setInt(3, cliente.getTipodocumento().getId_tipo_documento());
-                cstm.setInt(4, cliente.getNumero_identicacion());
+                cstm.setString(4, cliente.getNumero_identicacion());
                 cstm.setString(5, cliente.getFecha_naci_persona());
                 cstm.setString(6, cliente.getNacioalidad_persona());
                 cstm.setString(7, cliente.getEmpresa_persona());
@@ -152,7 +152,7 @@ public class ClienteDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("id_tipo_documento"), rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("Numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("Numero_identificacion"));
                 em.setEdad_persona(parseInt(rs.getString("Edad_persona")));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
@@ -201,7 +201,7 @@ public class ClienteDAO {
             cstm.setString(2, cliente.getNom_persona());
             cstm.setString(3, cliente.getApe_persona());
             cstm.setInt(4, cliente.getTipodocumento().getId_tipo_documento());
-            cstm.setInt(5, cliente.getNumero_identicacion());
+            cstm.setString(5, cliente.getNumero_identicacion());
             cstm.setInt(6, cliente.getEdad_persona());
             cstm.setString(7, cliente.getNacioalidad_persona());
             cstm.setString(8, cliente.getEmpresa_persona());

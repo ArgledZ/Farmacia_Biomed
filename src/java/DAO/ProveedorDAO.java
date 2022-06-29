@@ -44,7 +44,7 @@ public class ProveedorDAO {
                 em.setApe_persona(rs.getString("Ape_persona"));
                 //em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento")));
                 em.setTipodocumento(new Tipodocumento(rs.getInt("Id_tipo_documento"), rs.getString("Des_tipo_documento")));
-                em.setNumero_identicacion(parseInt(rs.getString("numero_identificacion")));
+                em.setNumero_identicacion(rs.getString("numero_identificacion"));
                 em.setEdad_persona(parseInt(rs.getString("Edad_persona")));
                 em.setNacioalidad_persona(rs.getString("Nacionalidad_persona"));
                 em.setEmpresa_persona(rs.getString("Empresa_persona"));
